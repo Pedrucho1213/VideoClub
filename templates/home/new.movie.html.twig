@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+{% form_theme formFilm 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    
+    <h1>Section pour ajouter un film</h1>
+
+    {{ form_start(formFilm) }}
+
+    {{ form_row(formFilm.title, {'attr': {'placeholder': "Titre du film"}}) }}
+    {{ form_row(formFilm.origina_title, {'attr': {'placeholder': "Titre du film original"}}) }}
+    {{ form_row(formFilm.original_language, {'attr': {'placeholder': "Langue originale du film"}}) }}
+    {{ form_row(formFilm.genre, {'attr': {'placeholder': "Genre"}}) }}
+    {{ form_row(formFilm.release_data, {'attr': {'placeholder': "Date de sortie"}}) }}
+    {{ form_row(formFilm.poster_path, {'attr': {'placeholder': "Image du film"}}) }}
+    {{ form_row(formFilm.overview, {'attr': {'placeholder': "Overview ..."}}) }}
+    {{ form_row(formFilm.video_path, {'attr': {'placeholder': "https://..."}}) }}
+    {{ form_row(formFilm.category) }}
+
+    <button type="submit" class="btn btn-success">Ajouter le film</button>
+
+    {{ form_end(formFilm) }}
+    
+{% endblock %}
