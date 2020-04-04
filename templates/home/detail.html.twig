@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Details {% endblock %}
+
+{% block body %}
+    <br/>
+    <br/>
+
+    <div class="jumbotron">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/home/{{ detail.category }}" role="button">Go back</a>
+        </p>
+        <h1 class="display-3">{{detail.title}}</h1>
+        <h3>Original title: {{ detail.originaTitle }}</h3>
+        <br/><br/>
+        <img src="{{detail.posterPath}}" class="img-fluid w-100" alt="Responsive image" >
+        <br/>
+        <br/>
+        <h5>Release date: {{ detail.releaseData | date('d/m/Y') }}</h5>
+        <h5>Genre: {{ detail.genre }}</h5>
+        <h5>Genre: {{ detail.originalLanguage }}</h5>
+        <p class="lead">{{ detail.overview }}</p>
+        <hr class="my-4">
+        <!-- 16:9 aspect ratio -->
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{detail.videoPath}}"></iframe>
+        </div>
+        <br/>
+
+    </div>
+{% endblock %}
