@@ -1,0 +1,77 @@
+{% extends 'admin/index.html.twig' %}
+{% block title %} Home Admin {% endblock %}
+
+{% block body %}
+    <br/>
+    <br/>
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome Pedro!</h1>
+        <p class="lead">vous êtes connecté en tant qu'administrateur.</p>
+    </div>
+    <br/>
+    <br/>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#films">Films</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#series">Series</a>
+        </li>
+
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active show" id="films">
+            <div class="container">
+                <div class="row row-cols-3">
+                    {% for film in films %}
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ film.posterPath }}"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ film.title }}</h4>
+                                    <h5>Release date: {{ film.releaseData | date('d/m/Y') }}</h5>
+                                    <p class="card-text ">{{ film.overview  [:150] }} ....</p>
+                                    <a href="{{ path('detailMovie', {id : film.id}) }}" class="btn btn-primary">Lire la
+                                        suite</a>
+                                    <a href="{{ path('editer', {id : film.id}) }}" class="btn btn-secondary">Edit</a>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="series">
+            <div class="container">
+                <div class="row row-cols-3">
+                    {% for film in series %}
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ film.posterPath }}"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ film.title }}</h4>
+                                    <h5>Release date: {{ film.releaseData | date('d/m/Y') }}</h5>
+                                    <p class="card-text ">{{ film.overview  [:150] }} ....</p>
+                                    <a href="{{ path('detailMovie', {id : film.id}) }}" class="btn btn-primary">Lire la
+                                        suite</a>
+                                    <a href="{{ path('editer', {id : film.id}) }}" class="btn btn-secondary">Edit</a>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

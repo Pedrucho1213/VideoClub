@@ -1,0 +1,31 @@
+{% extends 'admin/index.html.twig' %}
+{% form_theme formFilms 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block title %} Film registre {% endblock %}
+
+{% block body %}
+    <h1>Section pour {% if editMode %}
+            modifier
+        {% else %}
+            ajouter
+        {% endif %} un film ou serie</h1>
+
+    {{ form_start(formFilms) }}
+    {{ form_row(formFilms.title, {'attr':{'placeholder': 'Titre de film ou serie' } }) }}
+    {{ form_row(formFilms.origina_title, {'attr':{'placeholder': "Title d'origine" } }) }}
+    {{ form_row(formFilms.original_language, {'attr':{'placeholder': "Langue d'origine" } }) }}
+    {{ form_row(formFilms.genre, {'attr':{'placeholder': 'Genre de film' } }) }}
+    {{ form_row(formFilms.release_data) }}
+    {{ form_row(formFilms.poster_path, {'attr':{'placeholder': 'URL du poster' } }) }}
+    {{ form_row(formFilms.overview, {'attr':{'placeholder': 'Description de film' } }) }}
+    {{ form_row(formFilms.video_path, {'attr':{'placeholder': 'URL de video youtube' } }) }}
+    {{ form_row(formFilms.category, {'attr':{'placeholder': 'Category film' } }) }}
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Enregistrer les modifications
+        {% else %}
+            Ajouter le film
+        {% endif %}
+    </button>
+    {{ form_end(formFilms) }}
+{% endblock %}

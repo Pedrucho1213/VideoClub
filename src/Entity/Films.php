@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FilmsRepository")
@@ -18,21 +19,25 @@ class Films
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, max=255, minMessage="Le donnée est trop court")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=10, max=100, minMessage="Le donnée est trop court")
      */
     private $origina_title;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min=10, max=50, minMessage="Le donnée est trop court")
      */
     private $original_language;
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\Length(min=10, max=80, minMessage="Le donnée est trop court")
      */
     private $genre;
 
@@ -43,21 +48,25 @@ class Films
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $poster_path;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=20, minMessage="Le donnée est trop court")
      */
     private $overview;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $video_path;
 
     /**
      * @ORM\Column(type="string", length=50)
+     *
      */
     private $category;
 
