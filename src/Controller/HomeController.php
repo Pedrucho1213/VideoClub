@@ -9,13 +9,11 @@ use App\Entity\Films;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/test", name="home")
+     * @Route("/", name="home")
      */
     public function index()
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->redirect('/home/films');
     }
 
     /**
