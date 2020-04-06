@@ -26,7 +26,7 @@ class FilmsFixtures extends Fixture
         }
         for ($i = 1; $i <= 10; $i++) {
             $films = new Films();
-            $films->setTitle("Titre du film $i")
+            $films->setTitle("Titre du serie $i")
                 ->setOriginaTitle("N'importe quelle titre $i")
                 ->setOriginalLanguage("Spanish")
                 ->setCategory("films")
