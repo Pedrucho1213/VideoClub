@@ -67,4 +67,13 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/supprimer/{id}", name="supprimer")
+     */
+    public function supprimerFilm(Films $film , EntityManagerInterface $manager) {
+        $manager->remove($film);
+        $manager->flush();
+        return $this->redirectToRoute('homeAdmin');
+    }
+
 }
