@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Films;
+use App\Entity\User;
 use App\Form\SaveFilmType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
@@ -49,7 +52,19 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/createuser", name="user")
      */
-    public function user () {
-        return $this->render('admin/createUser.html.twig');
+    public function user (Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            $manager->persist($user);
+            $manager->flush();
+        }
+        return $this->render('admin/createUser.html.twig', [
+            'formUser' => $form->createView()
+        ]);
     }
+
 }

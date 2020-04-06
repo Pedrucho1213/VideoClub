@@ -3,11 +3,22 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Le mail que vous avez indiqué est déjà utilisé"
+ * )
+ * @UniqueEntity(
+ *     fields={"user"},
+ *     message="L'user que vous avez indiqué est déjà utilisé"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -23,9 +34,15 @@ class User
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min="8", minMessage="Minimun de caracteres 8")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="Vous n'avez pas tapé le même mot de passe")
      */
     private $password;
 
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
+     */
+    public $confirm_password;
     /**
      * @ORM\Column(type="boolean")
      */
@@ -43,12 +60,13 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\People", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $cve_people;
 
@@ -139,5 +157,37 @@ class User
         $this->cve_people = $cve_people;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

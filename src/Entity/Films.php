@@ -31,7 +31,7 @@ class Films
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Length(min=10, max=50, minMessage="Le donnée est trop court")
+     *
      */
     private $original_language;
 
